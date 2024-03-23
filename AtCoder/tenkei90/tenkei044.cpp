@@ -15,13 +15,12 @@ int main() {
   rep(i, Q) {
     int type, x, y;
     cin >> type >> x >> y;
+    // dequeのindex番号に合わせるための処理
     if (x != 0) x--;
     if (y != 0) y--;
     
     if (type == 1) {
-      int tmp = deq.at(x);
-      deq.at(x) = deq.at(y);
-      deq.at(y) = tmp;
+      swap(deq.at(x), deq.at(y));
     } else if (type == 2) {
       int tmp = deq.back();
       deq.pop_back();

@@ -2,13 +2,13 @@
 using namespace std;
 using vi = vector<int>;
 using vii = vector<vi>;
-#define rep(i, n) for (int i = 0; i < (n); i++)
 
 const int col_count = 7;
 string S;
-// 実装時は、ピン番号を実際の番号から1引いた値として考える
+// 実装時は、実際のピン番号から1を引いた値を用いる
 vii L = {{6}, {3}, {1, 7}, {0, 4}, {2, 8}, {5}, {9}};
 
+// 引数の列において、ピンが全て倒れているかを判定
 bool is_empty_col(int col) {
   bool is_empty_col = true;
   for (int x : L.at(col)) {
@@ -20,15 +20,13 @@ bool is_empty_col(int col) {
 int main() {
   cin >> S;
   
-  // ピン0が倒れている場合
+  // ピン1が倒れている場合
   if (S.at(0) != '0') {
     cout << "No" << endl;
     return 0;
   }
   
-  
-  rep(i, col_count) {
-    // 列i(0~6)のピンが全て倒れている場合
+  for (int i = 0; i < col_count; i++) {
     if (is_empty_col(i)) continue;
       
     for (int j = i + 1; j < col_count; j++) {
