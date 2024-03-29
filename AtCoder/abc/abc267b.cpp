@@ -2,34 +2,36 @@
 using namespace std;
 using vi = vector<int>;
 using vii = vector<vi>;
+#define rep(i, n) for (int i = 1; i <= (n); i++)
 
-const int col_count = 7;
+const int COL_COUNT = 7;
 string S;
-// 実装時は、実際のピン番号から1を引いた値を用いる
-vii L = {{6}, {3}, {1, 7}, {0, 4}, {2, 8}, {5}, {9}};
+// 配列のインデックスを列番号を合わせるために、0番目に空配列を入れている
+vii L = {{}, {7}, {4}, {2, 8}, {1, 5}, {3, 9}, {6}, {10}};
 
 // 引数の列において、ピンが全て倒れているかを判定
 bool is_empty_col(int col) {
-  bool is_empty_col = true;
   for (int x : L.at(col)) {
-    if (S.at(x) == '1') is_empty_col = false;
+    if (S.at(x) == '1') return false;
   }
-  return is_empty_col;
+  return true;
 }
 
 int main() {
   cin >> S;
+  // 文字列のインデックスをピン番号を合わせるために、先頭に文字xを入れている
+  S = "x" + S;
   
   // ピン1が倒れている場合
-  if (S.at(0) != '0') {
+  if (S.at(1) != '0') {
     cout << "No" << endl;
     return 0;
   }
   
-  for (int i = 0; i < col_count; i++) {
+  for (int i = 1; i <= COL_COUNT; i++) {
     if (is_empty_col(i)) continue;
       
-    for (int j = i + 1; j < col_count; j++) {
+    for (int j = i + 1; j <= COL_COUNT; j++) {
       if (is_empty_col(j)) continue;
       
       for (int k = i + 1; k < j; k++) {
@@ -40,5 +42,6 @@ int main() {
       }
     }
   }
+  
   cout << "No" << endl;
 }
