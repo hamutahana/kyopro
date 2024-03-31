@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 using vi = vector<int>;
-#define rep(i, n) for (int i = 0; i < (n); i++)
+#define rep(i, n) for (int i = 1; i <= (n); i++)
 
 const int64_t INF = 1001001001001001001;
 
@@ -10,19 +10,22 @@ int main() {
   
   int n;
   cin >> n;
-  vector<int64_t> a(n), b(n);
+  vi a(n+1);
   rep(i, n) cin >> a.at(i);
+  vector<int64_t> b(n+1);
+  b.at(0) = 0;
   
   int64_t ans = INF;
   rep(t, 2) {
     int64_t count = 0;
     rep(i, n) {
       int val = V.at((i + t) % 2);
-      if (i == 0) b.at(i) = a.at(i);
-      else b.at(i) = b.at(i-1) + a.at(i);
+      b.at(i) = b.at(i-1) + a.at(i);
+      // 符号が一致している場合
+      if (b.at(i) * val > 0) continue;
       
-      if (val * b.at(i) > 0) continue;
-      count += 1LL * abs(b.at(i) - val);
+      // 以下、符号が異なる場合
+      count += abs(b.at(i) - val);
       b.at(i) = val;
     }
     

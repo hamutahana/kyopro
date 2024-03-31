@@ -21,7 +21,7 @@ int main() {
     auto itA = lower_bound(all(A), B.at(i));
     auto itC = upper_bound(all(C), B.at(i));
     int64_t countA = distance(A.begin(), itA);
-    int64_t countC = (int)C.size() - distance(C.begin(), itC);
+    int64_t countC = distance(itC, C.end());
     ans += countA * countC;
   }
   
