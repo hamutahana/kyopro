@@ -11,7 +11,6 @@ int main() {
   
   for (int cx = 0; cx <= 100; cx++) {
     for (int cy = 0; cy <= 100; cy++) {
-      bool is_ok = true;
       int ch;
       rep(i, N) {
         if (h.at(i) == 0) continue;
@@ -20,6 +19,7 @@ int main() {
         break;
       }
       
+      bool is_ok = true;
       rep(i, N) {
         int calc_h = ch - abs(x.at(i) - cx) - abs(y.at(i) - cy);
         calc_h = max(calc_h, 0);
