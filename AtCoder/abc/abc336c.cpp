@@ -7,7 +7,6 @@ int main() {
   ll N; cin >> N;
   
   N--;
-  
   ll ans = 0, dig = 1;
   do {
     int num = (N % M) * 2;
