@@ -9,23 +9,23 @@ int main() {
   rep(i, M) {
     int a, b, c; cin >> a >> b >> c;
     a--; b--;
-    G[a].emplace_back(b, c);
-    G[b].emplace_back(a, c);
+    G[a].emplace_back(c, b);
+    G[b].emplace_back(c, a);
   }
   
-  vector<bool> used(N+1);
   int ans = 0;
-  auto dfs = [&](auto dfs, int v, int dist) -> void {
-    used[v] = true;
-    ans = max(ans, dist);
-    for (auto [nv, ndist] : G[v]) {
-      if (used[nv]) continue;
-      dfs(dfs, nv, dist + ndist);
+  vector<bool> visited(N, false);
+  auto f = [&](auto f, int v, int d) -> void {
+    visited[v] = true;
+    ans = max(ans, d);
+    for (auto [cost, nv] : G[v]) {
+      if (visited[nv]) continue;
+      f(f, nv, d + cost);
     }
-    used[v] = false;
+    visited[v] = false;
   };
+  rep(i, N) f(f, i, 0);
   
-  rep(i, N) dfs(dfs, i, 0);
   cout << ans << endl;
 }
 
