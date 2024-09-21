@@ -1,47 +1,37 @@
 #include <bits/stdc++.h>
 using namespace std;
 using vi = vector<int>;
-using vii = vector<vi>;
-#define rep(i, n) for (int i = 1; i <= (n); i++)
+#define rep(i, n) for (int i = 0; i < (n); i++)
 
-const int COL_COUNT = 7;
-string S;
-// 配列のインデックスを列番号を合わせるために、0番目に空配列を入れている
-vii L = {{}, {7}, {4}, {2, 8}, {1, 5}, {3, 9}, {6}, {10}};
+// 列ごとに存在するピン番号の配列を持つ二重配列
+vector<vi> L = {{7}, {4}, {2, 8}, {1, 5}, {3, 9}, {6}, {10}};
 
-// 引数の列において、ピンが全て倒れているかを判定
-bool is_empty_col(int col) {
-  for (int x : L.at(col)) {
-    if (S.at(x) == '1') return false;
+bool solve() {
+  string S; cin >> S;
+  
+  // ピン1が倒れていない場合
+  if (S[0] == '1') return false;
+  
+  auto existed_pin = [&](vi &a) {
+    for (int x : a) if (S[x-1] == '1') return true;
+    return false;
+  };
+  // ピンが残っている列（以下、残列と呼ぶ）の番号を格納する配列
+  vi existed_cols;
+  rep(i, L.size()) {
+    if (existed_pin(L[i])) existed_cols.push_back(i);
   }
-  return true;
+  // 残列が2つ未満の場合
+  if (existed_cols.size() < 2) return false;
+  
+  rep(i, existed_cols.size() - 1) {
+    // 残列の間にピンが全て倒れている列が存在する場合
+    if (existed_cols[i+1] - existed_cols[i] > 1) return true;
+  }
+  return false;
 }
 
 int main() {
-  cin >> S;
-  // 文字列のインデックスをピン番号を合わせるために、先頭に文字xを入れている
-  S = "x" + S;
-  
-  // ピン1が倒れている場合
-  if (S.at(1) != '0') {
-    cout << "No" << endl;
-    return 0;
-  }
-  
-  for (int i = 1; i <= COL_COUNT; i++) {
-    if (is_empty_col(i)) continue;
-      
-    for (int j = i + 1; j <= COL_COUNT; j++) {
-      if (is_empty_col(j)) continue;
-      
-      for (int k = i + 1; k < j; k++) {
-        if (is_empty_col(k)) {
-          cout << "Yes" << endl;
-          return 0;
-        }
-      }
-    }
-  }
-  
-  cout << "No" << endl;
+  if (solve()) cout << "Yes" << endl;
+  else cout << "No" << endl;
 }
