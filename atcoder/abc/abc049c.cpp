@@ -1,28 +1,28 @@
 #include <bits/stdc++.h>
 using namespace std;
-using vs = vector<string>;
+#define all(a) (a).begin(), (a).end()
+#define rep(i, n) for (int i = 0; i < (n); i++)
+
+bool solve() {
+  string S; cin >> S;
+  reverse(all(S));
+  
+  vector<string> T = { "dream", "dreamer", "erase", "eraser" };
+  rep(i, T.size()) reverse(all(T[i]));
+  int pos = 0;
+  while (pos < S.size()) {
+    bool ok = false;
+    for (string t : T) {
+      int c = t.size();
+      if (S.substr(pos, c) == t) { pos += c; ok = true; }
+    }
+    if (!ok) return false;
+  }
+  return true;
+}
 
 int main() {
-  const vs W = { "dream", "dreamer", "erase", "eraser" };
-  
-  string S;
-  cin >> S;
-  
-  while (S != "") {
-    bool is_ok = false;
-    for (string w : W) {
-      int i = (int)S.size() - (int)w.size();
-      if (i < 0) continue;
-      if (S.substr(i) != w) continue;
-      
-      S.erase(i);
-      is_ok = true;
-    }
-    
-    if (!is_ok) {
-      cout << "NO" << endl;
-      return 0;
-    }
-  }
-  cout << "YES" << endl;
+  if (solve()) cout << "YES" << endl;
+  else cout << "NO" << endl;
 }
+
