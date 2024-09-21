@@ -1,50 +1,37 @@
 #include <bits/stdc++.h>
 using namespace std;
 using vi = vector<int>;
-using vii = vector<vi>;
-using vb = vector<bool>;
-using vbb = vector<vb>;
-#define rep(i, n) for (int i = 1; i <= (n); i++)
+using vs = vector<string>;
+using P = pair<int, int>;
+#define rep(i, n) for (int i = 0; i < (n); ++i)
+
+const vi dy = { -1, 0, 1, 0 };
+const vi dx = { 0, 1, 0, -1 };
 
 int main() {
-  const vi direct_y = { -1, 0, 1, 0 };
-  const vi direct_x = { 0, 1, 0, -1 };
-  
-  int H, W;
-  cin >> H >> W;
+  int R, C; cin >> R >> C;
   int sy, sx, gy, gx;
   cin >> sy >> sx >> gy >> gx;
-  vbb checked(H+2, vb(W+2, true));
-  vii count(H+2, vi(W+2, -1));
-  rep(i, H) {
-    rep(j, W) {
-      char c;
-      cin >> c;
-      if (c == '.') checked.at(i).at(j) = false;
+  sy--; sx--; gy--; gx--;
+  vs s(R); rep(i, R) cin >> s[i];
+  
+  vector<vi> dist(R, vi(C, -1));
+  queue<P> q;
+  dist[sy][sx] = 0;
+  q.emplace(sy, sx);
+  while (!q.empty()) {
+    auto [y, x] = q.front();
+    q.pop();
+    rep(k, 4) {
+      int ny = y + dy[k], nx = x + dx[k];
+      if (s[ny][nx] == '#') continue;
+      if (dist[ny][nx] != -1) continue;
+      
+      dist[ny][nx] = dist[y][x] + 1;
+      q.emplace(ny, nx);
     }
   }
   
-  queue<int> qy;
-  queue<int> qx;
-  
-  count.at(sy).at(sx) = 0;
-  qy.push(sy); qx.push(sx);
-  checked.at(sy).at(sx) = true;
-  
-  while (!qy.empty() && !qx.empty()) {
-    int pos_y = qy.front(), pos_x = qx.front();
-    qy.pop(); qx.pop();
-    for (int i = 0; i < 4; i++) {
-      int next_y = pos_y + direct_y.at(i);
-      int next_x = pos_x + direct_x.at(i);
-      if (!checked.at(next_y).at(next_x)) {
-        count.at(next_y).at(next_x) = count.at(pos_y).at(pos_x) + 1;
-        qy.push(next_y); qx.push(next_x);
-        checked.at(next_y).at(next_x) = true;
-      }
-    }
-  }
-  
-  cout << count.at(gy).at(gx) << endl;
+  cout << dist[gy][gx] << endl;
 }
 

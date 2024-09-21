@@ -1,46 +1,32 @@
 #include <bits/stdc++.h>
 using namespace std;
-using vi = vector<int>;
-using vii = vector<vi>;
+using P = pair<int, int>;
+#define rep(i, n) for (int i = 0; i < (n); ++i)
 
 int main() {
-  int N, M;
-  cin >> N >> M;
-  vii G(N+1, vi(0));
-  for (int i = 1; i <= M; i++) {
-    int x, y;
-    cin >> x >> y;
-    G.at(x).push_back(y);
-    G.at(y).push_back(x);
+  int N, M; cin >> N >> M;
+  set<P> st;
+  rep(i, M) {
+    int a, b; cin >> a >> b;
+    a--; b--;
+    st.emplace(a, b);
+    st.emplace(b, a);
   }
   
-  int max_count = 0;
-  for (int i = 0; i < (1 << N); i++) {
-    bool is_ok = true;
-    vi L(0);
-    for (int j = 0; j < N; j++) {
-      if ((i & (1 << j)) != 0) L.push_back(j + 1);
-    }
-    
-    for (int x : L) {
-      set<int> s;
-      for (int y : G.at(x)) s.insert(y);
-      
-      for (int y : L) {
-        if (y == x) continue;
-        if (!s.count(y)) {
-          is_ok = false;
-          break;
-        }
+  int ans = 0;
+  rep(i, (1 << N)) {
+    vector<int> L;
+    rep(j, N) if ((i >> j) & 1) L.push_back(j);
+    int l = L.size();
+    bool ok = true;
+    rep(a, l) {
+      for (int b = a + 1; b < l; b++) {
+        if (!st.count(P(L[a], L[b]))) ok = false;
       }
-      
-      if (!is_ok) break;
     }
-    
-    if (is_ok) {
-      int count = L.size();
-      max_count = max(max_count, count);
-    }
+    if (ok) ans = max(ans, l);
   }
-  cout << max_count << endl;
+  
+  cout << ans << endl;
 }
+
