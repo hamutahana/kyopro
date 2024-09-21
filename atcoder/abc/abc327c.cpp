@@ -3,37 +3,35 @@ using namespace std;
 using vi = vector<int>;
 #define rep(i, n) for (int i = 0; i < (n); i++)
 
+bool check(vi &a) {
+  set<int> st;
+  for (int x : a) st.insert(x);
+  if (st.size() != 9) return false;
+  return true;
+}
+
 bool solve() {
-  const int N = 9;
-  vector<vi> A(N, vi(N));
-  rep(i, N) rep(j, N) cin >> A[i][j];
+  vector<vi> a(9, vi(9));
+  rep(i, 9) rep(j, 9) cin >> a[i][j];
   
   // 行判定
-  rep(i, N) {
-    set<int> s;
-    rep(j, N) s.insert(A[i][j]);
-    if (s.size() != N) return false;
-  }
-  
+  rep(i, 9) if (!check(a[i])) return false;
   // 列判定
-  rep(j, N) {
-    set<int> s;
-    rep(i, N) s.insert(A[i][j]);
-    if (s.size() != N) return false;
+  rep(j, 9) {
+    vi b;
+    rep(i, 9) b.push_back(a[i][j]);
+    if (!check(b)) return false;
   }
-  
   // ブロック判定
-  int M = N / 3;
-  for (int si = 0; si < N; si += M) {
-    for (int sj = 0; sj < N; sj += M) {
-      set<int> s;
-      for (int i = si; i < si + M; i++) {
-        for (int j = sj; j < sj + M; j++) s.insert(A[i][j]);
-      }
-      if (s.size() != N) return false;
+  rep(p, 9) {
+    int i = (p / 3) * 3, j = (p % 3) * 3;
+    vi b;
+    rep(q, 9) {
+      int di = q / 3, dj = q % 3;
+      b.push_back(a[i + di][j + dj]);
     }
+    if (!check(b)) return false;
   }
-  
   return true;
 }
 
