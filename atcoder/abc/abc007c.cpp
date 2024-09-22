@@ -26,6 +26,7 @@ int main() {
       int ny = y + dy[k], nx = x + dx[k];
       if (s[ny][nx] == '#') continue;
       if (dist[ny][nx] != -1) continue;
+      
       dist[ny][nx] = dist[y][x] + 1;
       q.emplace(ny, nx);
     }
