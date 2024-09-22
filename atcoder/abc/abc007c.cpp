@@ -9,16 +9,15 @@ const vi dy = { -1, 0, 1, 0 };
 const vi dx = { 0, 1, 0, -1 };
 
 int main() {
-  int R, C; cin >> R >> C;
+  int H, W; cin >> H >> W;
   int sy, sx, gy, gx;
   cin >> sy >> sx >> gy >> gx;
   sy--; sx--; gy--; gx--;
-  vs s(R); rep(i, R) cin >> s[i];
+  vs s(H); rep(i, H) cin >> s[i];
   
-  vector<vi> dist(R, vi(C, -1));
+  vector<vi> dist(H, vi(W, -1));
   queue<P> q;
-  dist[sy][sx] = 0;
-  q.emplace(sy, sx);
+  q.emplace(sy, sx); dist[sy][sx] = 0;
   while (!q.empty()) {
     auto [y, x] = q.front();
     q.pop();
@@ -26,9 +25,7 @@ int main() {
       int ny = y + dy[k], nx = x + dx[k];
       if (s[ny][nx] == '#') continue;
       if (dist[ny][nx] != -1) continue;
-      
-      dist[ny][nx] = dist[y][x] + 1;
-      q.emplace(ny, nx);
+      q.emplace(ny, nx); dist[ny][nx] = dist[y][x] + 1;
     }
   }
   
