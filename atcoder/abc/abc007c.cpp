@@ -17,7 +17,8 @@ int main() {
   
   vector<vi> dist(H, vi(W, -1));
   queue<P> q;
-  q.emplace(sy, sx); dist[sy][sx] = 0;
+  dist[sy][sx] = 0;
+  q.emplace(sy, sx);
   while (!q.empty()) {
     auto [y, x] = q.front();
     q.pop();
@@ -25,7 +26,8 @@ int main() {
       int ny = y + dy[k], nx = x + dx[k];
       if (s[ny][nx] == '#') continue;
       if (dist[ny][nx] != -1) continue;
-      q.emplace(ny, nx); dist[ny][nx] = dist[y][x] + 1;
+      dist[ny][nx] = dist[y][x] + 1;
+      q.emplace(ny, nx);
     }
   }
   
