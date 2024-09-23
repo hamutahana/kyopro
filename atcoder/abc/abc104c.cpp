@@ -1,38 +1,33 @@
 #include <bits/stdc++.h>
 using namespace std;
 using vi = vector<int>;
-#define rep(i, n) for (int i = 1; i <= (n); i++)
+#define rep(i, n) for (int i = 0; i < (n); i++)
 
 const int INF = 1001001001;
 
 int main() {
-  int D, G;
-  cin >> D >> G;
-  vi N(D+1), P(D+1);
-  rep(i, D) cin >> N.at(i) >> P.at(i);
-
+  int D, G; cin >> D >> G;
+  vi N(D), P(D), S(D);
+  rep(i, D) cin >> N[i] >> P[i];
+  rep(i, D) S[i] = 100 * (i + 1) * N[i] + P[i];
+  
   int ans = INF;
-  // コンプリートした問題の組をビット全探索
-  for (int i = 0; i < (1 << D); i++) {
-    int score = 0, count = 0, rest_max_dif;
-    for (int j = 1; j <= D; j++) {
-      if ((i & (1 << (j - 1))) != 0) {
-        score +=  (100 * j) * N.at(j) + P.at(j);
-        count += N.at(j);
-      } else {
-        // コンプリートした問題の合計スコアが目標に達していない場合、次に、未コンプリートの問題が一部解けた場合を考える
-        // ループ終了後、非コンプリート問題の中で最大の難易度が保持されている
-        rest_max_dif = j;
-      }
+  // コンプリートした問題で全探索
+  rep(i, (1 << D)) {
+    vi L;
+    int q;
+    rep(j, D) {
+      if ((i >> j) & 1) L.push_back(j);
+      else q = j;
     }
-
-    if (score >= G) ans = min(ans, count);
+    int score = 0, cnt = 0;
+    for (int j : L) { score += S[j]; cnt += N[j]; }
+    if (score >= G) ans = min(ans, cnt);
     else {
-      int rest_point = G - score;
-      int rest_count = ceil(1.0 * rest_point / (100 * rest_max_dif));
-      if (rest_count < N.at(rest_max_dif)) {
-        count += rest_count;
-        ans = min(ans, count);
+      int rest_score = G - score, point = 100 * (q + 1);
+      if (rest_score <= point * (N[q] - 1)) {
+        cnt += (rest_score + point - 1) / point;
+        ans = min(ans, cnt);
       }
     }
   }
