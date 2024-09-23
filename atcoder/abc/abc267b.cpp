@@ -1,3 +1,4 @@
+// https://atcoder.jp/contests/abc267/tasks/abc267_b
 #include <bits/stdc++.h>
 using namespace std;
 using vi = vector<int>;

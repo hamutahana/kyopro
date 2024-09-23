@@ -1,3 +1,4 @@
+// https://atcoder.jp/contests/abc347/tasks/abc347_c
 #include <bits/stdc++.h>
 using namespace std;
 #define rep(i, n) for (int i = 0; i < (n); i++)
