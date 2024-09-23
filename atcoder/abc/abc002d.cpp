@@ -17,14 +17,14 @@ int main() {
   rep(i, (1 << N)) {
     vector<int> L;
     rep(j, N) if ((i >> j) & 1) L.push_back(j);
-    int l = L.size();
+    int sz = L.size();
     bool ok = true;
-    rep(a, l) {
-      for (int b = a + 1; b < l; b++) {
+    rep(a, sz) {
+      for (int b = a + 1; b < sz; b++) {
         if (!st.count(P(L[a], L[b]))) ok = false;
       }
     }
-    if (ok) ans = max(ans, l);
+    if (ok) ans = max(ans, sz);
   }
   
   cout << ans << endl;
