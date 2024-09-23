@@ -1,3 +1,4 @@
+// https://atcoder.jp/contests/abc049/tasks/arc065_a
 #include <bits/stdc++.h>
 using namespace std;
 

@@ -1,3 +1,4 @@
+// https://atcoder.jp/contests/abc349/tasks/abc349_d
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;

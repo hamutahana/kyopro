@@ -1,3 +1,4 @@
+// https://atcoder.jp/contests/abc270/tasks/abc270_b
 #include <bits/stdc++.h>
 using namespace std;
 
