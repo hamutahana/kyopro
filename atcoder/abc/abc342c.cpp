@@ -7,12 +7,13 @@ int main() {
   int N, Q; string S;
   cin >> N >> S >> Q;
   
+  // 元々の文字が操作後にどの文字に置き換えられているかを保持する連想配列
+  // mp[before_char] = after_char
   map<char, char> mp;
   rep(i, 26) mp['a' + i] = 'a' + i;
   rep(qi, Q) {
     char c, d; cin >> c >> d;
-    // bf: before, af: after
-    for (auto &[bf, af] : mp) if (af == c) af = d;
+    for (auto &[_, after_char] : mp) if (after_char == c) after_char = d;
   }
   
   string ans = "";
