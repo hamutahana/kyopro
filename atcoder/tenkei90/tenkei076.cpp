@@ -1,3 +1,4 @@
+// https://atcoder.jp/contests/typical90/tasks/typical90_bx
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;

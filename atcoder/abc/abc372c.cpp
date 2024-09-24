@@ -1,3 +1,4 @@
+// https://atcoder.jp/contests/abc372/tasks/abc372_c
 #include <bits/stdc++.h>
 using namespace std;
 #define rep(i, n) for (int i = 0; i < (n); i++)
@@ -6,7 +7,7 @@ int main() {
   int N, Q; cin >> N >> Q;
   string S; cin >> S;
   // 引数で指定した要素番号を含む範囲に文字列"ABC"が存在するかを真偽値で返す
-  auto check = [&](int x) -> bool {
+  auto included_ABC = [&](int x) -> bool {
     rep(k, 3) {
       int init = x - k;
       if (init < 0) continue;
@@ -20,9 +21,9 @@ int main() {
     int x; char c; cin >> x >> c;
     x--;
     int cnt = 0;
-    if (check(x)) cnt--;
+    if (included_ABC(x)) cnt--;
     S[x] = c;
-    if (check(x)) cnt++;
+    if (included_ABC(x)) cnt++;
     ans += cnt;
     
     cout << ans << endl;
