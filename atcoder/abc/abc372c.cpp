@@ -25,6 +25,7 @@ int main() {
     S[x] = c;
     if (included_ABC(x)) cnt++;
     ans += cnt;
+    
     cout << ans << endl;
   }
 }
