@@ -3,6 +3,7 @@ atcoderディレクトリに各コンテストの実装したソースファイ�
 ソースコードの1行目に対応する問題のURLを載せています。
 ### atcoder/tenkei90
 atcoder/tenkei90 に典型90問の実装したソースファイルがあります。
+問題一覧のURLは下記になります。
 https://atcoder.jp/contests/typical90/tasks
 
 ### atcoder/abc
